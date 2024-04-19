@@ -31,10 +31,12 @@ def get_response(pdf, user_question):
         # Embed the text
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
         knowledge_store = FAISS.from_texts(chunks, embeddings)
+
         if user_question:
             docs = knowledge_store.similarity_search(query=user_question)
+
             chain = load_qa_chain(llm, chain_type='stuff')
-            response = chain.run(question = user_question, input_documents = docs)
+            response = chain.run(input_documents = docs, question = user_question)
             
             return response
             
@@ -48,8 +50,8 @@ def main():
         st.session_state.chat_history = [
             AIMessage(content = "Hello, I can help you find the right answers to the questions about your PDF, How can I help you"),
         ]
-
-    pdf = st.file_uploader('Upload your PDF', type='pdf')
+    with st.sidebar:
+        pdf = st.file_uploader('Upload your PDF', type='pdf')
 
 
     # User functionality
