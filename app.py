@@ -36,7 +36,7 @@ def get_response(pdf, user_question):
             chain = load_qa_chain(llm, chain_type='stuff')
             response = chain.run(question = user_question, input_documents = docs)
             
-            return response
+            return docs
             
 
 def main():
