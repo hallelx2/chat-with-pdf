@@ -12,7 +12,7 @@ from langchain.vectorstores.faiss import FAISS
 def get_response(pdf, user_question):
     load_dotenv()
     # extract text
-    llm = ChatGoogleGenerativeAI(model="gemini-pro")
+    # llm = ChatGoogleGenerativeAI(model="gemini-pro")
     if pdf is not None:
         pdf_reader = PdfReader(pdf)
         text = ''
@@ -35,10 +35,10 @@ def get_response(pdf, user_question):
         if user_question:
             docs = knowledge_store.similarity_search(query=user_question)
 
-            chain = load_qa_chain(llm, chain_type='stuff')
-            response = chain.run(input_documents = docs, question = user_question)
+            # chain = load_qa_chain(llm, chain_type='stuff')
+            # response = chain.run(input_documents = docs, question = user_question)
             
-            return response
+            return docs
             
 
 def main():
